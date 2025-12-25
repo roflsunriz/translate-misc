@@ -349,6 +349,25 @@ a:hover {
   padding: 0 0.2em;
 }
 
+/* Standalone links (buttons) styling */
+body > a {
+  display: block;
+  width: fit-content;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  background: var(--bg-paper);
+  border: 2px solid var(--accent-main);
+  box-shadow: 4px 4px 0 var(--shadow-color);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+body > a:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--shadow-color);
+  padding: 1rem 2rem;
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 12px;
