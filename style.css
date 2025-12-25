@@ -1,0 +1,523 @@
+/* AI 2027 - Retro Terminal Style (White & Green) */
+
+/* CSS Variables for theming */
+:root {
+  --bg-primary: #f5f5f0;
+  --bg-secondary: #e8e8e0;
+  --bg-paper: #fafaf5;
+  --border-color: #2d5a3d;
+  --border-light: #7cb992;
+  --text-primary: #1a1a18;
+  --text-secondary: #3d3d38;
+  --accent-dark: #1e4d2b;
+  --accent-main: #2d7a4a;
+  --accent-light: #4a9d6a;
+  --accent-pale: #d4e8dc;
+  --heading-color: #1a3d28;
+  --link-color: #2d7a4a;
+  --link-hover: #1e4d2b;
+  --shadow-color: rgba(45, 90, 61, 0.15);
+  --selection-bg: #b8d4c4;
+}
+
+/* Selection styling */
+::selection {
+  background: var(--selection-bg);
+  color: var(--heading-color);
+}
+
+/* Base reset and body styling */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 18px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Meiryo", "Yu Gothic", "Hiragino Sans", "Hiragino Kaku Gothic ProN", serif;
+  line-height: 2;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 31px,
+      rgba(45, 90, 61, 0.03) 31px,
+      rgba(45, 90, 61, 0.03) 32px
+    );
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+/* Decorative header stripe */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent-dark) 0px,
+    var(--accent-dark) 20px,
+    var(--accent-main) 20px,
+    var(--accent-main) 40px,
+    var(--accent-light) 40px,
+    var(--accent-light) 60px
+  );
+  z-index: 1000;
+}
+
+/* Main content container */
+body > h1:first-of-type,
+body > p,
+body > b,
+body > h2,
+body > hr,
+body > ul,
+body > ol {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Main title styling */
+h1 {
+  font-family: "Meiryo", "Yu Gothic", "Hiragino Sans", "Hiragino Kaku Gothic ProN", serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--heading-color);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem 2rem;
+  background: var(--bg-paper);
+  border: 3px double var(--border-color);
+  border-radius: 0;
+  box-shadow: 
+    4px 4px 0 var(--accent-pale),
+    8px 8px 0 var(--border-light);
+  letter-spacing: 0.2em;
+  position: relative;
+}
+
+h1::before,
+h1::after {
+  content: "❧";
+  color: var(--accent-main);
+  font-size: 1.5rem;
+  margin: 0 0.5rem;
+}
+
+/* Author names styling */
+.authors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
+  padding: 1rem 1.5rem;
+  background: var(--bg-paper);
+  border: 1px solid var(--border-light);
+  box-shadow: 2px 2px 0 var(--shadow-color);
+}
+
+.authors span {
+  font-weight: 600;
+  font-style: italic;
+  color: var(--accent-dark);
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.authors span:not(:last-child)::after {
+  content: "・";
+  margin-left: 0.5rem;
+  color: var(--accent-main);
+  font-style: normal;
+}
+
+/* Section headings */
+h2 {
+  font-family: "Meiryo", "Yu Gothic", "Hiragino Sans", "Hiragino Kaku Gothic ProN", serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--bg-paper);
+  background: linear-gradient(180deg, var(--accent-main) 0%, var(--accent-dark) 100%);
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  position: relative;
+  box-shadow: 3px 3px 0 var(--accent-pale);
+}
+
+h2::before {
+  content: "§";
+  margin-right: 0.75rem;
+  font-weight: normal;
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 20px;
+  right: 20px;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent-light) 0px,
+    var(--accent-light) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+/* Paragraph styling */
+p {
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+  padding: 1rem 1.5rem;
+  background: var(--bg-paper);
+  border-left: 4px solid var(--accent-main);
+  border-right: 1px solid var(--border-light);
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: 2px 2px 0 var(--shadow-color);
+  text-align: justify;
+  text-indent: 1em;
+  transition: all 0.2s ease;
+}
+
+p:hover {
+  border-left-color: var(--accent-dark);
+  border-left-width: 6px;
+  background: #ffffff;
+  transform: translateX(2px);
+}
+
+/* First letter styling for paragraphs */
+p::first-letter {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: var(--accent-dark);
+}
+
+/* Horizontal rule styling */
+hr {
+  border: none;
+  height: auto;
+  margin: 2.5rem auto;
+  text-align: center;
+  background: transparent;
+}
+
+hr::before {
+  content: "✦ ✦ ✦";
+  display: block;
+  color: var(--accent-main);
+  font-size: 1.2rem;
+  letter-spacing: 1rem;
+  position: relative;
+}
+
+hr::after {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 2px;
+  margin: 0.5rem auto 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--border-light) 20%,
+    var(--accent-main) 50%,
+    var(--border-light) 80%,
+    transparent 100%
+  );
+}
+
+/* List styling */
+ul,
+ol {
+  list-style: none;
+  margin-bottom: 1.25rem;
+  padding: 1rem 1.5rem;
+  background: var(--bg-paper);
+  border-left: 4px solid var(--accent-main);
+  border-right: 1px solid var(--border-light);
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  box-shadow: 2px 2px 0 var(--shadow-color);
+  transition: all 0.2s ease;
+}
+
+ul:hover,
+ol:hover {
+  border-left-color: var(--accent-dark);
+  border-left-width: 6px;
+  background: #ffffff;
+  transform: translateX(2px);
+}
+
+/* Nested lists styling reset */
+ul ul,
+ul ol,
+ol ul,
+ol ol {
+  margin-bottom: 0;
+  padding: 0.5rem 0 0.5rem 1rem;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+ul ul:hover,
+ul ol:hover,
+ol ul:hover,
+ol ol:hover {
+  background: transparent;
+  transform: none;
+  border: none;
+}
+
+li {
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+li::before {
+  content: "»";
+  position: absolute;
+  left: 0;
+  color: var(--accent-main);
+  font-weight: 700;
+}
+
+ol {
+  counter-reset: item;
+}
+
+ol > li {
+  counter-increment: item;
+  padding-left: 1.5rem;
+}
+
+ol > li::before {
+  content: counter(item) ".";
+}
+
+/* Image styling */
+img {
+  display: block;
+  max-width: min(100%, 800px);
+  height: auto;
+  margin: 2rem auto;
+  padding: 0.5rem;
+  background: var(--bg-paper);
+  border: 1px solid var(--border-light);
+  box-shadow: 3px 3px 0 var(--shadow-color);
+}
+
+/* Links styling */
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--link-color);
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+a:hover {
+  color: var(--link-hover);
+  border-bottom-style: solid;
+  background: var(--accent-pale);
+  padding: 0 0.2em;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-left: 1px solid var(--border-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--accent-light), var(--accent-main));
+  border: 2px solid var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--accent-main), var(--accent-dark));
+}
+
+/* Retro decorative corners for main content area */
+body > p:first-of-type::before {
+  content: "┌";
+  position: absolute;
+  top: -0.5rem;
+  left: -0.5rem;
+  font-size: 1.5rem;
+  color: var(--accent-main);
+  font-family: monospace;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+  
+  body {
+    padding: 1rem 0.75rem;
+    padding-top: 2rem;
+  }
+  
+  h1 {
+    font-size: 1.75rem;
+    padding: 1.25rem 1.5rem;
+    letter-spacing: 0.1em;
+    box-shadow: 
+      3px 3px 0 var(--accent-pale),
+      6px 6px 0 var(--border-light);
+  }
+  
+  h1::before,
+  h1::after {
+    display: none;
+  }
+  
+  h2 {
+    font-size: 1.25rem;
+    padding: 0.7rem 1.25rem;
+    margin-top: 2rem;
+  }
+  
+  p {
+    padding: 0.875rem 1.25rem;
+    text-align: left;
+    text-indent: 0;
+  }
+  
+  ul {
+    padding: 0.875rem 1.25rem;
+    text-align: left;
+  }
+
+  .authors {
+    padding: 0.75rem 1rem;
+    gap: 0.25rem 0.5rem;
+  }
+
+  .authors span {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+    padding: 1rem;
+    box-shadow: 
+      2px 2px 0 var(--accent-pale),
+      4px 4px 0 var(--border-light);
+  }
+  
+  h2 {
+    font-size: 1.1rem;
+    padding: 0.6rem 1rem;
+  }
+  
+  h2::after {
+    left: 10px;
+    right: 10px;
+  }
+  
+  p {
+    padding: 0.75rem 1rem;
+    border-left-width: 3px;
+  }
+  
+  li {
+    padding-left: 1rem;
+  }
+
+  hr::before {
+    letter-spacing: 0.5rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
+    background-image: none;
+    color: black;
+    padding: 0;
+  }
+  
+  body::before {
+    display: none;
+  }
+  
+  h1, h2, p, ul, ol, .authors, .authors span {
+    background: none;
+    border: none;
+    box-shadow: none;
+    color: black;
+  }
+  
+  h1 {
+    border-bottom: 2px solid black;
+  }
+  
+  h1::before,
+  h1::after {
+    display: none;
+  }
+  
+  h2 {
+    background: none;
+    color: black;
+    border-left: 3px solid black;
+    padding-left: 1rem;
+  }
+  
+  h2::after {
+    display: none;
+  }
+  
+  p {
+    border-left: 2px solid #333;
+  }
+  
+  ul, ol {
+    padding-left: 1rem;
+    border-left: 2px solid #333;
+  }
+
+  hr::before,
+  hr::after {
+    display: none;
+  }
+  
+  hr {
+    border-top: 1px solid black;
+  }
+}
