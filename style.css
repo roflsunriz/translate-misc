@@ -79,6 +79,7 @@ body::before {
 
 /* Main content container */
 body > h1:first-of-type,
+body > a,
 body > p,
 body > b,
 body > h2,
