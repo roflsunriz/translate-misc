@@ -333,6 +333,22 @@ img {
   box-shadow: 3px 3px 0 var(--shadow-color);
 }
 
+/* Video styling */
+.video-wrapper {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: var(--bg-paper);
+  border: 1px solid var(--border-light);
+  box-shadow: 3px 3px 0 var(--shadow-color);
+}
+
+.video-wrapper video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 /* Links styling */
 a {
   color: var(--link-color);
