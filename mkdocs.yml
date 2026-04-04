@@ -4,6 +4,10 @@ repo_url: https://github.com/roflsunriz/translate-misc
 repo_name: roflsunriz/translate-misc
 theme:
   name: mkdocs
+plugins:
+  - search:
+      lang: ja
+      min_search_length: 1
 nav:
   - Home: index.md
   - Essays:
