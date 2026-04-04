@@ -1,6 +1,6 @@
-# テクノロジーの青春期
+# The Adolescence of Technology
 
-**Original URL:** [darioamodei.com/the-adolescence-of-technology](https://darioamodei.com/the-adolescence-of-technology)
+**Original URL:** [darioamodei.com/essay/the-adolescence-of-technology](https://darioamodei.com/essay/the-adolescence-of-technology)
 
 Dario Amodei
 

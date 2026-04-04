@@ -1,4 +1,4 @@
-# Trickcal Speaky 日本語訳
+# Trickcal Speaky
 
 **Original URL:** [Trickcal Re:VIVE](https://x.com/Trickcal_Re/status/1994633728094765098)
 

@@ -6,13 +6,13 @@
 
 - [AI 2027](articles/ai-2027.md)
 - [Machines of Loving Grace](articles/machines-of-loving-grace.md)
-- [テクノロジーの青春期](articles/the-adolescence-of-technology.md)
+- [The Adolescence of Technology](articles/the-adolescence-of-technology.md)
 - [The Gentle Singularity](articles/gentle-singularity.md)
 - [Intelligence Age](articles/intelligence-age.md)
 
 ## Games
 
-- [Trickcal Speaky 日本語訳](articles/trickcal-speaky.md)
+- [Trickcal Speaky](articles/trickcal-speaky.md)
 
 ## Music
 
