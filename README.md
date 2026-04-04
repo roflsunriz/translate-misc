@@ -1,8 +1,16 @@
 ## このリポジトリについて
-このリポジトリには、私が翻訳した文章や論文の全文日本語訳が含まれています。
+このリポジトリには、翻訳済みの記事・論文・メモを統合し、Markdown 化したうえで `mkdocs` で公開するための構成が含まれています。
 
-## GITHUB PAGES
-[Index](https://roflsunriz.github.io/translate-misc/index.html)
+## ローカル確認
+```powershell
+mkdocs serve
+```
+
+## 公開
+`main` ブランチへ push すると `.github/workflows/pages.yml` で GitHub Pages 用のサイトをビルド・公開します。
+
+## GitHub Pages
+<https://roflsunriz.github.io/translate-misc/>
 
 ## ライセンス
 [MIT ライセンス](./LICENSE)
