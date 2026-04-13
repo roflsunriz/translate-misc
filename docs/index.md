@@ -14,13 +14,10 @@
 
 - [Trickcal Speaky](articles/trickcal-speaky.md)
 
-## Music
-
-- [Silent Sirens Flashing for Us All](articles/silent-sirens-flashing-for-us-all.md)
-- [Footprints in the sand](articles/foootprints-in-the-sand.md)
-
 ## Notes
 
+- [Silent Sirens, Flashing For Us All](articles/silent-sirens-flashing-for-us-all.md)
+- [Footprints in the sand](articles/foootprints-in-the-sand.md)
 - [Welcome to December 28, 2025](articles/welcome-to-december-28-2025.md)
 
 ## Papers
