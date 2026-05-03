@@ -3,7 +3,7 @@
 
 ## ローカル確認
 ```powershell
-mkdocs serve
+mkdocs serve --livereload --dirty
 ```
 
 ## 公開
