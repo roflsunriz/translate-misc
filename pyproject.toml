@@ -24,6 +24,9 @@ dev = [
 [project.scripts]
 translate-article = "translation_pipeline.cli:main"
 
+[project.gui-scripts]
+translate-article-gui = "translation_pipeline.gui:main"
+
 [tool.setuptools.packages.find]
 include = ["translation_pipeline*"]
 

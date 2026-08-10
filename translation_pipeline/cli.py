@@ -6,11 +6,12 @@ import subprocess
 import sys
 from pathlib import Path
 
+from translation_pipeline.application import publish_reviewed_session, push_committed_session
 from translation_pipeline.config import Settings
 from translation_pipeline.errors import PipelineError
 from translation_pipeline.pipeline import prepare_article
-from translation_pipeline.publisher import CATEGORIES, publish, push_existing_commit
-from translation_pipeline.workspace import load_session, update_session_stage
+from translation_pipeline.publisher import CATEGORIES
+from translation_pipeline.workspace import load_session
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -82,8 +83,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"draft: {directory / 'draft.md'}")
             return 0
         if args.command == "push":
-            push_existing_commit(repository, metadata)
-            update_session_stage(directory, metadata, "published", metadata.commit)
+            push_committed_session(settings, args.slug)
             print("mainへのpushが完了しました。GitHub Pagesのワークフローが開始されます。")
             return 0
         if args.command == "publish":
@@ -93,16 +93,7 @@ def main(argv: list[str] | None = None) -> int:
                 )
             if not args.yes:
                 _confirm_human_review(metadata.title)
-            try:
-                result = publish(repository, metadata, draft, push=not args.no_push)
-            except PipelineError:
-                head = _current_head(repository)
-                article = repository / "docs" / "articles" / f"{metadata.slug}.md"
-                if article.exists() and head:
-                    update_session_stage(directory, metadata, "committed_not_pushed", head)
-                raise
-            stage = "published" if result.pushed else "committed_not_pushed"
-            update_session_stage(directory, metadata, stage, result.commit)
+            result = publish_reviewed_session(settings, args.slug, draft, push=not args.no_push)
             print(f"記事を追加しました: {result.article_path}")
             if result.pushed:
                 print("mainへのpushが完了しました。GitHub Pagesのワークフローが開始されます。")
@@ -139,10 +130,3 @@ def _open_in_editor(path: Path) -> None:
     except OSError as error:
         raise PipelineError(f"エディターを開けません。直接開いてください: {path}") from error
     print(f"下書きを開きました: {path}")
-
-
-def _current_head(repository: Path) -> str | None:
-    completed = subprocess.run(
-        ["git", "rev-parse", "HEAD"], cwd=repository, capture_output=True, text=True, check=False
-    )
-    return completed.stdout.strip() if completed.returncode == 0 else None
