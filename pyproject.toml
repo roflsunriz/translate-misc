@@ -44,8 +44,16 @@ select = ["E", "F", "I", "UP", "B", "SIM"]
 [tool.mypy]
 python_version = "3.11"
 strict = true
-packages = ["translation_pipeline"]
+files = ["translation_pipeline", "tests"]
 
 [[tool.mypy.overrides]]
 module = ["trafilatura", "trafilatura.*"]
 ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["pytest", "pytest.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+disallow_untyped_decorators = false

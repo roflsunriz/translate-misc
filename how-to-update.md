@@ -34,7 +34,8 @@ python -m pip install -e ".[dev]" --upgrade
 ```powershell
 ruff check .
 ruff format --check .
-mypy translation_pipeline
+mypy translation_pipeline tests
+.\.venv\Scripts\dmypy.exe run -- translation_pipeline tests
 pytest
 pip-audit
 mkdocs build --strict

@@ -1,10 +1,19 @@
 import sys
 import tkinter as tk
 from pathlib import Path
+from typing import Protocol, cast
 
 import pytest
 
 from translation_pipeline.gui import TranslationGui
+
+
+class _StatefulWidget(Protocol):
+    def instate(self, statespec: list[str]) -> bool: ...
+
+
+def _is_disabled(widget: object) -> bool:
+    return cast(_StatefulWidget, widget).instate(["disabled"])
 
 
 @pytest.mark.skipif(sys.platform != "win32", reason="TkデスクトップGUIはWindowsで検証する")
@@ -25,9 +34,9 @@ def test_gui_builds_without_console_and_supports_small_window(tmp_path: Path) ->
             "さくらのAI Engine",
             "OpenRouter Free Router",
         }
-        assert app.save_button.instate(["disabled"])
-        assert app.open_original_button.instate(["disabled"])
-        assert app.publish_button.instate(["disabled"])
-        assert app.push_button.instate(["disabled"])
+        assert _is_disabled(app.save_button)
+        assert _is_disabled(app.open_original_button)
+        assert _is_disabled(app.publish_button)
+        assert _is_disabled(app.push_button)
     finally:
         root.destroy()

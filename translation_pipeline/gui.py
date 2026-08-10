@@ -10,6 +10,7 @@ from collections.abc import Callable
 from functools import partial
 from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
+from typing import Protocol, cast
 
 from translation_pipeline.application import publish_reviewed_session, push_committed_session
 from translation_pipeline.config import Settings
@@ -44,6 +45,15 @@ STAGE_LABELS = {
     "committed_not_pushed": "コミット済み・push待ち",
     "published": "公開済み",
 }
+
+
+class _StatefulWidget(Protocol):
+    def state(self, statespec: list[str]) -> object: ...
+
+
+def _set_widget_enabled(widget: ttk.Widget, enabled: bool) -> None:
+    state = ["!disabled"] if enabled else ["disabled"]
+    cast(_StatefulWidget, widget).state(state)
 
 
 class TranslationGui:
@@ -583,20 +593,14 @@ class TranslationGui:
 
     def _update_review_actions(self) -> None:
         stage = self._current_item.metadata.stage if self._current_item else ""
-        if self._current_item is None:
-            self.open_original_button.state(["disabled"])
-        else:
-            self.open_original_button.state(["!disabled"])
+        _set_widget_enabled(self.open_original_button, self._current_item is not None)
         if stage == "awaiting_human_review":
-            self.save_button.state(["!disabled"])
-            self.publish_button.state(["!disabled"])
+            _set_widget_enabled(self.save_button, True)
+            _set_widget_enabled(self.publish_button, True)
         else:
-            self.save_button.state(["disabled"])
-            self.publish_button.state(["disabled"])
-        if stage == "committed_not_pushed":
-            self.push_button.state(["!disabled"])
-        else:
-            self.push_button.state(["disabled"])
+            _set_widget_enabled(self.save_button, False)
+            _set_widget_enabled(self.publish_button, False)
+        _set_widget_enabled(self.push_button, stage == "committed_not_pushed")
 
     def _save_settings(self) -> None:
         try:
@@ -723,12 +727,12 @@ class TranslationGui:
         if busy:
             self.progress.start(12)
             for button in self._action_buttons:
-                button.state(["disabled"])
+                _set_widget_enabled(button, False)
         else:
             self.progress.stop()
             self.progress.configure(value=0)
             for button in self._action_buttons:
-                button.state(["!disabled"])
+                _set_widget_enabled(button, True)
             self._update_review_actions()
 
     def _append_log(self, message: str) -> None:
