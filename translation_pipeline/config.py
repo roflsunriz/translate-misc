@@ -27,7 +27,7 @@ class Settings:
         return cls(
             repository=root,
             work_directory=root / ".translation-work",
-            translator=_endpoint_from_environment("TRANSLATOR", "http://127.0.0.1:8080/v1"),
+            translator=_endpoint_from_environment("TRANSLATOR", "http://127.0.0.1:3002/v1"),
             reviewer=_reviewer_endpoint(provider),
             reviewer_provider=provider,
             chunk_characters=_integer("TRANSLATE_CHUNK_CHARACTERS", 3500, minimum=500),

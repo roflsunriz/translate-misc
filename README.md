@@ -15,10 +15,17 @@ python -m venv .venv
 python -m pip install -e ".[dev]"
 ```
 
-手元の PLaMo 2 translate のGGUFを、OpenAI互換APIのポート8080で起動します。モデルファイルのパスは実際の配置先へ置き換えてください。
+この環境ではポート8080をNicoCache_nlが使用しているため、PLaMo 2 translateのOpenAI互換APIにはポート3002を使います。設定済みの起動スクリプトを実行してください。
 
 ```powershell
-llama-server -m C:\path\to\plamo-2-translate.gguf --port 8080 --alias plamo-2-translate
+& C:\Users\UserName\Documents\llama.cpp\scripts\pl2.ps1
+```
+
+パイプラインの既定接続先は `http://127.0.0.1:3002/v1` です。別のポートで起動する場合は、`TRANSLATE_TRANSLATOR_URL` で接続先を上書きできます。上段は現在のPowerShellだけ、下段はWindowsユーザー環境変数への恒久設定です。
+
+```powershell
+$env:TRANSLATE_TRANSLATOR_URL = "http://127.0.0.1:任意のポート/v1"
+[Environment]::SetEnvironmentVariable("TRANSLATE_TRANSLATOR_URL", "http://127.0.0.1:任意のポート/v1", "User")
 ```
 
 翻訳には、PLaMo 2 translateの公式モデルカードに記載された非チャット用プロンプト形式と、llama.cppの `/v1/completions` を使用します。

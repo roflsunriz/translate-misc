@@ -5,6 +5,16 @@ import pytest
 from translation_pipeline.config import Settings
 
 
+def test_default_translator_uses_plamo_server_port(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.delenv("TRANSLATE_TRANSLATOR_URL", raising=False)
+
+    settings = Settings.from_environment(tmp_path)
+
+    assert settings.translator.base_url == "http://127.0.0.1:3002/v1"
+
+
 @pytest.mark.parametrize(
     ("provider", "key_name", "expected_url", "expected_model"),
     [

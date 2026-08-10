@@ -45,7 +45,7 @@ def test_prepare_creates_human_review_session(
     settings = Settings(
         repository=tmp_path,
         work_directory=tmp_path / ".translation-work",
-        translator=Endpoint("http://localhost:8080/v1", "plamo", "no-key", 10),
+        translator=Endpoint("http://localhost:3002/v1", "plamo", "no-key", 10),
         reviewer=Endpoint("https://api.example/v1", "reviewer", "test-key", 10),
         reviewer_provider="cerebras",
         chunk_characters=3500,

@@ -27,7 +27,7 @@ python -m pip install -e ".[dev]" --upgrade
 - さくらのAI Engine: <https://manual.sakura.ad.jp/api/cloud/ai-engine/inference.html>
 - OpenRouter Free Models Router: <https://openrouter.ai/docs/guides/routing/routers/free-router>
 
-モデル名は `translation_pipeline/config.py` の既定値とREADMEの表を同時に更新する。キー名やAPI URLを変更する場合は、キーがログ、例外、テスト成果物へ出ないことも確認する。
+モデル名は `translation_pipeline/config.py` の既定値とREADMEの表を同時に更新する。ローカルllama.cppのポートを変更する場合も、起動スクリプト、`translation_pipeline/config.py` の既定URL、README、設定テストを同時に更新する。キー名やAPI URLを変更する場合は、キーがログ、例外、テスト成果物へ出ないことも確認する。
 
 ## 検証
 
