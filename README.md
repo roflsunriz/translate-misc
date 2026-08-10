@@ -27,6 +27,10 @@ llama-server -m C:\path\to\plamo-2-translate.gguf --port 8080 --alias plamo-2-tr
 
 利用するサービスのキーを、PowerShellの環境変数へ設定します。キーをファイルへ書き込んだり、Gitへコミットしたりしないでください。
 
+#### 一時的に設定する
+
+次の `$env:` を使う方法は、現在のPowerShellと、そこから起動したプロセスでだけ有効です。PowerShellを閉じると設定は失われます。
+
 ```powershell
 # Cerebrasを使う場合
 $env:CEREBRAS_API_KEY = "取得したAPIキー"
@@ -37,6 +41,46 @@ $env:SAKURA_AI_API_KEY = "取得したAPIキー"
 # OpenRouterのFree Models Routerを使う場合
 $env:OPENROUTER_API_KEY = "取得したAPIキー"
 ```
+
+#### 恒久的に設定する（推奨）
+
+毎回入力したくない場合は、Windowsのユーザー環境変数として保存します。利用するサービスの行だけを実行してください。
+
+```powershell
+# Cerebrasを使う場合
+[Environment]::SetEnvironmentVariable("CEREBRAS_API_KEY", "取得したAPIキー", "User")
+
+# さくらのAI Engineを使う場合
+[Environment]::SetEnvironmentVariable("SAKURA_AI_API_KEY", "取得したAPIキー", "User")
+
+# OpenRouterのFree Models Routerを使う場合
+[Environment]::SetEnvironmentVariable("OPENROUTER_API_KEY", "取得したAPIキー", "User")
+```
+
+既定の校閲サービスも固定する場合は、`cerebras`、`sakura`、`openrouter` のいずれかを設定します。これにより、通常は `prepare` の `--review-provider` を省略できます。
+
+```powershell
+[Environment]::SetEnvironmentVariable("TRANSLATE_REVIEW_PROVIDER", "openrouter", "User")
+```
+
+設定後は、開いているPowerShellやCodexをいったん閉じ、新しく起動してください。値そのものを画面へ表示せず、設定の有無だけを確認するには次を実行します。
+
+```powershell
+"CEREBRAS_API_KEY", "SAKURA_AI_API_KEY", "OPENROUTER_API_KEY", "TRANSLATE_REVIEW_PROVIDER" |
+  ForEach-Object {
+    $value = [Environment]::GetEnvironmentVariable($_, "User")
+    "{0}: {1}" -f $_, $(if ($value) { "設定済み" } else { "未設定" })
+  }
+```
+
+恒久設定を削除する場合は、値に `$null` を指定します。
+
+```powershell
+[Environment]::SetEnvironmentVariable("OPENROUTER_API_KEY", $null, "User")
+[Environment]::SetEnvironmentVariable("TRANSLATE_REVIEW_PROVIDER", $null, "User")
+```
+
+ユーザー環境変数は同じWindowsユーザーで動くプロセスから読み取れるため、共有PCでは取り扱いに注意してください。
 
 既定モデルは次の通りです。契約画面で利用可能なモデル名が異なる場合は、対応する環境変数で上書きできます。
 
