@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import time
 from collections.abc import Mapping, Sequence
 from typing import Any, cast
@@ -83,11 +84,7 @@ class OpenAICompatibleClient:
         data = response.get("data")
         if not isinstance(data, list) or not data:
             raise PipelineError(f"{self.endpoint.base_url}/models にロード済みモデルがありません。")
-        first = data[0]
-        model_id = first.get("id") if isinstance(first, dict) else None
-        if not isinstance(model_id, str):
-            raise PipelineError("モデル一覧の形式を解釈できません。")
-        return model_id
+        return _select_model_id(data, self.endpoint.base_url)
 
     def _request(
         self, method: str, path: str, body: Mapping[str, Any] | None = None
@@ -151,6 +148,49 @@ def _clean_model_output(value: str) -> str:
     if not text:
         raise PipelineError("LLMが空の応答を返しました。")
     return text
+
+
+_NON_CHAT_MODEL_PATTERN = re.compile(
+    r"(?:^|[/_.-])(embedding|embed|whisper|speech|tts|voice|e5)(?:$|[/_.-])",
+    re.IGNORECASE,
+)
+
+
+def _select_model_id(data: Sequence[object], base_url: str) -> str:
+    candidates: list[tuple[int, int, str]] = []
+    for item in data:
+        if not isinstance(item, dict):
+            continue
+        model_id = item.get("id")
+        if not isinstance(model_id, str) or not model_id.strip():
+            continue
+        normalized_id = model_id.strip()
+        if _NON_CHAT_MODEL_PATTERN.search(normalized_id):
+            continue
+        created = item.get("created")
+        created_at = int(created) if isinstance(created, int | float) else 0
+        candidates.append((_model_priority(normalized_id, base_url), -created_at, normalized_id))
+
+    if not candidates:
+        raise PipelineError("モデル一覧に利用可能なチャットモデルがありません。")
+    candidates.sort(key=lambda candidate: (candidate[0], candidate[1], candidate[2].casefold()))
+    return candidates[0][2]
+
+
+def _model_priority(model_id: str, base_url: str) -> int:
+    lowered = model_id.casefold()
+    if "api.ai.sakura.ad.jp" in base_url:
+        if lowered == "llm-jp-3.1-8x13b-instruct4":
+            return 0
+        if any(name in lowered for name in ("llm-jp", "plamo", "cotomi")):
+            return 1
+    if lowered == "gpt-oss-120b":
+        return 2
+    if any(name in lowered for name in ("coder", "code")):
+        return 5
+    if re.search(r"(?:^|[/_.-])(?:vl|vision)(?:$|[/_.-])", lowered):
+        return 4
+    return 3
 
 
 def _retry_delay(retry_after: str | None, attempt: int) -> float:

@@ -9,7 +9,7 @@ import pytest
 
 from translation_pipeline.errors import PipelineError
 from translation_pipeline.models import Endpoint
-from translation_pipeline.openai_compatible_client import OpenAICompatibleClient
+from translation_pipeline.openai_compatible_client import OpenAICompatibleClient, _select_model_id
 
 
 class _Handler(BaseHTTPRequestHandler):
@@ -17,7 +17,15 @@ class _Handler(BaseHTTPRequestHandler):
 
     def do_GET(self) -> None:
         assert self.path == "/v1/models"
-        self._json({"data": [{"id": "loaded-model"}]})
+        self._json(
+            {
+                "data": [
+                    {"id": "whisper-large-v3-turbo", "created": 30},
+                    {"id": "multilingual-e5-large", "created": 20},
+                    {"id": "loaded-model", "created": 10},
+                ]
+            }
+        )
 
     def do_POST(self) -> None:
         length = int(self.headers["Content-Length"])
@@ -75,3 +83,16 @@ def test_missing_api_key_is_rejected_before_request(api_server: str) -> None:
 
     with pytest.raises(PipelineError, match="APIキー"):
         client.chat("system", "user")
+
+
+def test_sakura_model_selection_is_stable_and_excludes_non_chat_models() -> None:
+    models = [
+        {"id": "preview/Qwen3-Embedding-4B-FP16", "created": 40},
+        {"id": "preview/Kimi-K2.7-Code", "created": 30},
+        {"id": "gpt-oss-120b", "created": 20},
+        {"id": "llm-jp-3.1-8x13b-instruct4", "created": 10},
+    ]
+
+    base_url = "https://api.ai.sakura.ad.jp/v1"
+    assert _select_model_id(models, base_url) == "llm-jp-3.1-8x13b-instruct4"
+    assert _select_model_id(list(reversed(models)), base_url) == "llm-jp-3.1-8x13b-instruct4"

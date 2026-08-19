@@ -52,14 +52,14 @@ def _reviewer_endpoint(provider: str) -> Endpoint:
     if provider == "cerebras":
         return Endpoint(
             base_url="https://api.cerebras.ai/v1",
-            model=os.environ.get("CEREBRAS_MODEL", "gpt-oss-120b"),
+            model=os.environ.get("CEREBRAS_MODEL") or None,
             api_key=os.environ.get("CEREBRAS_API_KEY", ""),
             timeout_seconds=_number("TRANSLATE_REVIEWER_TIMEOUT", 600.0, minimum=1.0),
         )
     if provider == "sakura":
         return Endpoint(
             base_url="https://api.ai.sakura.ad.jp/v1",
-            model=os.environ.get("SAKURA_AI_MODEL", "llm-jp-3.1-8x13b-instruct4"),
+            model=os.environ.get("SAKURA_AI_MODEL") or None,
             api_key=os.environ.get("SAKURA_AI_API_KEY", ""),
             timeout_seconds=_number("TRANSLATE_REVIEWER_TIMEOUT", 600.0, minimum=1.0),
         )

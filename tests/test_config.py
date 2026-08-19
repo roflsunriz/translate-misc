@@ -18,12 +18,12 @@ def test_default_translator_uses_plamo_server_port(
 @pytest.mark.parametrize(
     ("provider", "key_name", "expected_url", "expected_model"),
     [
-        ("cerebras", "CEREBRAS_API_KEY", "https://api.cerebras.ai/v1", "gpt-oss-120b"),
+        ("cerebras", "CEREBRAS_API_KEY", "https://api.cerebras.ai/v1", None),
         (
             "sakura",
             "SAKURA_AI_API_KEY",
             "https://api.ai.sakura.ad.jp/v1",
-            "llm-jp-3.1-8x13b-instruct4",
+            None,
         ),
         (
             "openrouter",
@@ -38,7 +38,7 @@ def test_reviewer_provider_presets(
     provider: str,
     key_name: str,
     expected_url: str,
-    expected_model: str,
+    expected_model: str | None,
 ) -> None:
     monkeypatch.setenv(key_name, "secret-for-test")
     settings = Settings.from_environment(Path.cwd(), provider)

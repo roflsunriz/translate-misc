@@ -103,12 +103,12 @@ $env:OPENROUTER_API_KEY = "取得したAPIキー"
 
 ユーザー環境変数は同じWindowsユーザーで動くプロセスから読み取れるため、共有PCでは取り扱いに注意してください。
 
-既定モデルは次の通りです。契約画面で利用可能なモデル名が異なる場合は、対応する環境変数で上書きできます。
+校閲モデルは次の通り解決します。CerebrasとさくらのAI Engineは認証付きの `GET /v1/models` から毎回のプロセスで利用可能モデルを発見し、音声・埋め込みモデルを除外して安定順で選びます。特定モデルへ固定する場合だけ、対応する環境変数で上書きします。
 
 | プロバイダー | 既定モデル | 上書き用環境変数 |
 | --- | --- | --- |
-| Cerebras | `gpt-oss-120b` | `CEREBRAS_MODEL` |
-| さくらのAI Engine | `llm-jp-3.1-8x13b-instruct4` | `SAKURA_AI_MODEL` |
+| Cerebras | `GET /v1/models` から自動選択 | `CEREBRAS_MODEL` |
+| さくらのAI Engine | `GET /v1/models` から自動選択 | `SAKURA_AI_MODEL` |
 | OpenRouter | `openrouter/free` | `OPENROUTER_MODEL` |
 
 OpenRouterの `openrouter/free` は、リクエストごとに利用可能な無料モデルを自動選択します。無料枠はレート制限・可用性・出力品質が一定ではありません。また、選ばれたプロバイダーによって入力と出力が記録・学習利用される場合があるため、秘密情報や未公開情報を含む記事には使用しないでください。

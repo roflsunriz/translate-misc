@@ -19,7 +19,7 @@ python -m pip install -e ".[dev]" --upgrade
 
 ## API・モデル設定の更新
 
-各サービスの公式ドキュメントと利用中アカウントのモデル一覧を確認し、既定値を変更する。
+各サービスの公式ドキュメントと利用中アカウントのモデル一覧APIを確認する。CerebrasとさくらのAI Engineは固定既定値を持たず、認証付き `GET /v1/models` からチャットモデルを自動選択する。
 
 - llama.cpp: <https://github.com/ggml-org/llama.cpp/tree/master/tools/server>
 - PLaMo 2 translate: <https://huggingface.co/pfnet/plamo-2-translate>
@@ -27,7 +27,7 @@ python -m pip install -e ".[dev]" --upgrade
 - さくらのAI Engine: <https://manual.sakura.ad.jp/api/cloud/ai-engine/inference.html>
 - OpenRouter Free Models Router: <https://openrouter.ai/docs/guides/routing/routers/free-router>
 
-モデル名は `translation_pipeline/config.py` の既定値とREADMEの表を同時に更新する。ローカルllama.cppのポートを変更する場合も、起動スクリプト、`translation_pipeline/config.py` の既定URL、README、設定テストを同時に更新する。キー名やAPI URLを変更する場合は、キーがログ、例外、テスト成果物へ出ないことも確認する。
+CerebrasまたはさくらのAI Engineの一覧形式・URL・認証方法が変わった場合は、`translation_pipeline/openai_compatible_client.py` の検証と選択規則、README、テストを同時に更新する。個別モデル名は自動選択の優先順位としてだけ扱い、固定既定値へ戻さない。ローカルllama.cppのポートを変更する場合も、起動スクリプト、`translation_pipeline/config.py` の既定URL、README、設定テストを同時に更新する。キー名やAPI URLを変更する場合は、キーがログ、例外、テスト成果物へ出ないことも確認する。
 
 ## 検証
 
