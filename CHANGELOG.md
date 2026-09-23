@@ -24,4 +24,5 @@
 
 ### Fixed
 
+- CI と Dependabot の分類の実行順が前後しても更新を取りこぼさないよう、同じ PR 番号と head SHA を再照合する経路を追加した。
 - エディターのdmypyがtests配下を個別解析しても誤警告を出さないように、テストを明示的なパッケージにし、pytest未導入daemonとPython 3.14のTk型定義に対応した。CIの型検査対象にもtestsを追加した。
