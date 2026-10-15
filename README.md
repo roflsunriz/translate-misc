@@ -170,24 +170,6 @@ translate-article push <slug>
 - 著作権、翻訳公開の許諾、引用要件は自動判定できません。公開前の人間レビューで確認してください。
 - PLaMo Community Licenseの公開出力に関する表示要件を満たすため、生成記事にはPLaMo 2 translateの出力を使った旨を記載します。この表示を削除した下書きは公開できません。
 
-## ローカル確認
-
-```powershell
-mkdocs serve --livereload --dirty
-```
-
-コードを変更した場合は次を実行します。
-
-```powershell
-ruff check .
-ruff format --check .
-mypy translation_pipeline tests
-.\.venv\Scripts\dmypy.exe run -- translation_pipeline tests
-pytest
-pip-audit
-mkdocs build --strict
-```
-
 ## 公開
 `main` ブランチへ push すると `.github/workflows/pages.yml` で GitHub Pages 用のサイトをビルド・公開します。
 
@@ -197,6 +179,7 @@ mkdocs build --strict
 ## ライセンス
 [MIT ライセンス](./LICENSE)
 
-## 依存更新の自動処理
 
-Dependabot は対象の依存関係を毎週確認します。patch／minor 更新は PR のチェック（CI）が成功した後に自動で squash merge されます。CI の失敗ジョブは 1 回だけ再実行します。再失敗した PR は残して手動で修正します。major 更新は手動で確認します。マージ後はデプロイ workflow を明示起動します。
+## 開発・運用の知見
+
+開発環境、内部構成、検証コマンドと運用上の注意は [findings.md](findings.md) を参照してください。更新・復旧の手順と検証記録は、同ファイルから案内しています。
