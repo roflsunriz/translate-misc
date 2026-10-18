@@ -9,6 +9,7 @@
 - [The Adolescence of Technology](articles/the-adolescence-of-technology.md)
 - [The Gentle Singularity](articles/gentle-singularity.md)
 - [Intelligence Age](articles/intelligence-age.md)
+- [Inside the Event Horizon: Why Everyone Should Take AI Progress Seriously](articles/inside-the-event-horizon.md)
 
 ## Games
 
