@@ -33,3 +33,4 @@
 - レビュー用下書きは `.translation-work/inside-the-event-horizon/draft.md` に保存した。原文と訳文の主要見出し8件、話者見出し22件、時刻リンク30件が一致し、文字化け、未復元の保護記号、既知の誤訳語は0件だった。`mkdocs build --strict` と `git diff --check` は成功した。
 - 公開承認前は下書きを `awaiting_human_review` のまま保持し、公開ファイルへのコピー、コミット、pushを行わなかった。利用者による原文との最終照合と明示的な公開指示を受けてから公開処理へ進む。
 - 2026-10-19の公開承認後、`pip install --upgrade --upgrade-strategy eager -e ".[dev]"` で制約内の依存関係を更新した。`urllib3` は既知脆弱性3件のある2.7.0から修正版2.8.0へ更新され、`pip-audit` は既知脆弱性0件、`pip list --outdated` は更新候補0件、`pip check` は依存不整合0件となった。更新後にRuff、Ruff format、mypy、dmypy、pytest 41件、`mkdocs build --strict` が成功した。pytestとdmypyはWindowsサンドボックスが一時ディレクトリとNamed Pipeを制限するため、専用一時ディレクトリを指定して権限を広げた環境で再検証した。
+- 公開コミット `aa0d816` を `origin/main` へpushした。GitHub ActionsのCI（run `39177253469`）とDeploy MkDocs（run `39177253323`）は成功した。公開URL `https://roflsunriz.github.io/translate-misc/articles/inside-the-event-horizon/` はHTTP 200を返し、記事タイトル、`Claude Mythos`、`アライメント`、`Ant A-Fu`、IMF公式動画リンク、PLaMO表示が実配信HTMLに含まれることを確認した。
