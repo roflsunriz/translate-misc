@@ -31,4 +31,5 @@
 - PLaMO 2 translateで44チャンクを翻訳した。さくらのAI Engineは長文校閲で指示外の解説と原文にない内容を生成し、OpenRouter無料ルーターは長文で本文が空の応答を返したため、いずれの出力も採用していない。Codexが補正版原文とPLaMO初稿を対照し、誤訳、訳抜け、数値、固有名詞、文体を修正した。
 - 公開前の固有名詞監査では、IMF公式プログラム、AnthropicのモデルSystem Card・Claude Fable・Claude Corps、OpenAIのGPT-6 Astra・Jakub Pachockiによる「An Alien Mind」、Ant GroupのAnt A-Fu、TheoPhysEvalのarXiv論文、Boston UniversityとICBC Standard Bankの公式プロフィールを照合した。`alignment` は「アライメント」とし、一次資料で確認できない最初の会場質問者名は断定表記を削除した。
 - レビュー用下書きは `.translation-work/inside-the-event-horizon/draft.md` に保存した。原文と訳文の主要見出し8件、話者見出し22件、時刻リンク30件が一致し、文字化け、未復元の保護記号、既知の誤訳語は0件だった。`mkdocs build --strict` と `git diff --check` は成功した。
-- 下書きは `awaiting_human_review` のままであり、公開ファイルへのコピー、コミット、pushは未実行。利用者が原文との最終照合を承認するまで公開しない。
+- 公開承認前は下書きを `awaiting_human_review` のまま保持し、公開ファイルへのコピー、コミット、pushを行わなかった。利用者による原文との最終照合と明示的な公開指示を受けてから公開処理へ進む。
+- 2026-10-19の公開承認後、`pip install --upgrade --upgrade-strategy eager -e ".[dev]"` で制約内の依存関係を更新した。`urllib3` は既知脆弱性3件のある2.7.0から修正版2.8.0へ更新され、`pip-audit` は既知脆弱性0件、`pip list --outdated` は更新候補0件、`pip check` は依存不整合0件となった。更新後にRuff、Ruff format、mypy、dmypy、pytest 41件、`mkdocs build --strict` が成功した。pytestとdmypyはWindowsサンドボックスが一時ディレクトリとNamed Pipeを制限するため、専用一時ディレクトリを指定して権限を広げた環境で再検証した。
