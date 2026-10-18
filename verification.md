@@ -29,5 +29,6 @@
 - IMF公式動画（81分45秒）の16kHz・モノラルPCM音声をWhisper Desktopの `ggml-large-v3-turbo-q8_0`、英語固定、CUDA、翻訳なしでSRT化した。904区間、開始00:00:00、終了01:21:23、文字化け0件を確認した。
 - 元SRTを保持し、同一文の連続反復59件と重複した話者紹介1件を除外した。欠落したV. Anantha Nageswaran氏の導入部は動画と別の文字起こしで照合し、公式プログラムで話者名・役職を確認した。補正版は844区間、主要部8見出し、話者22見出し、動画時刻リンク30件となった。
 - PLaMO 2 translateで44チャンクを翻訳した。さくらのAI Engineは長文校閲で指示外の解説と原文にない内容を生成し、OpenRouter無料ルーターは長文で本文が空の応答を返したため、いずれの出力も採用していない。Codexが補正版原文とPLaMO初稿を対照し、誤訳、訳抜け、数値、固有名詞、文体を修正した。
+- 公開前の固有名詞監査では、IMF公式プログラム、AnthropicのモデルSystem Card・Claude Fable・Claude Corps、OpenAIのGPT-6 Astra・Jakub Pachockiによる「An Alien Mind」、Ant GroupのAnt A-Fu、TheoPhysEvalのarXiv論文、Boston UniversityとICBC Standard Bankの公式プロフィールを照合した。`alignment` は「アライメント」とし、一次資料で確認できない最初の会場質問者名は断定表記を削除した。
 - レビュー用下書きは `.translation-work/inside-the-event-horizon/draft.md` に保存した。原文と訳文の主要見出し8件、話者見出し22件、時刻リンク30件が一致し、文字化け、未復元の保護記号、既知の誤訳語は0件だった。`mkdocs build --strict` と `git diff --check` は成功した。
 - 下書きは `awaiting_human_review` のままであり、公開ファイルへのコピー、コミット、pushは未実行。利用者が原文との最終照合を承認するまで公開しない。
