@@ -1,5 +1,10 @@
 # 検証手順
 
+## 2026-11-10: README本文と配布情報の整備
+
+- Git履歴の移動前後と現在のREADMEを比較し、移動案内・競合マーカー・新たなコードフェンス不整合が残っていないことを確認した。復元で追加された相対リンクの参照先とアンカーを確認した。
+- 今回は文書と配布メタデータの変更で、アプリ本体のビルド・端末への適用・新規リリースは実施していない。
+
 ## Dependabot 自動処理（2026-09-23）
 
 `.github/workflows/dependabot-automation.yml` を actionlint で検査し、PR 用 workflow 名（CI）と一致することを確認する。Dependabot の patch／minor かつ全 PR チェック成功の場合だけ取り込み、major・古い SHA・再失敗は残す。
